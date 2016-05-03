@@ -86,6 +86,8 @@ Then run the database migration with the command `php artisan migrate`
 
 Last step run the seed of the database with `php artisan db:seed`
 
+WARNNING : for widows users > launch MySQL console from Wamp 
+
 Informations
 -------------
 
