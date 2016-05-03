@@ -26,7 +26,7 @@ Next you must ensure that NodeJS is installed on your machine
 ```
 $ node -v
 ```
-If not you can download it [here](https://nodejs.org/en/download/)
+If not you can download it nodejs [here](https://nodejs.org/en/download/)
 
 Install Gulp
 
