@@ -17,7 +17,7 @@ Installation
 
 Clone the repository
 ```
-$ git clone git@bitbucket.org:PNEXTIA/techiteasy.git
+$ https://github.com/Arnaudlaurent/techiteasy.git
 ```
 
 Run `composer install` to setup all vendors
@@ -27,7 +27,7 @@ Next you must ensure that NodeJS is installed on your machine
 ```
 $ node -v
 ```
-If not you can download it [here](https://nodejs.org/en/download/)
+If not you can download it [here](https://nodejs.org/en/download/) (for windows users) 
 
 Install Gulp
 
@@ -56,7 +56,10 @@ Configuration
 
 Check if `.env` already exists
 
-If not, create them from the `.env.example` files
+If not, create them from the `.env.example` files 
+```
+$ cp .env.example .env
+```
 
 ### Configure App
 
@@ -70,6 +73,9 @@ APP_DEBUG=true
 ### Configure Database
 
 Create your local database
+
+WARNING : for windows user launch MySQLconsole from Wamp
+
 ```
 #!sql
 mysql> CREATE DATABASE `techiteasy`;
@@ -81,7 +87,7 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=techiteasy
 DB_USERNAME=root
-DB_PASSWORD=root
+DB_PASSWORD=root (or none)
 ```
 Then run the database migration with the command `php artisan migrate`
 
