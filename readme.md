@@ -10,7 +10,7 @@ Server Requirements
 * Mbstring PHP Extension
 * Tokenizer PHP Extension
 * MySQL
-
+* gitbash (for windows users)
 Installation
 =============
 
