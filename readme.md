@@ -55,7 +55,10 @@ Configuration
 
 Check if `.env` already exists
 
-If not, create them from the `.env.example` files
+If not, create them from the `.env.example` files 
+```
+$ cp .env.example .env
+```
 
 ### Configure App
 
