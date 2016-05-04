@@ -10,6 +10,7 @@ Server Requirements
 * Mbstring PHP Extension
 * Tokenizer PHP Extension
 * MySQL
+* WAMP for windows users
 
 Installation
 =============
