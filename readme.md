@@ -50,6 +50,26 @@ $ gulp
 // Run all tasks and minify all CSS and JavaScript...
 $ gulp --production
 ```
+ 
+Install Composer(for local use)
+
+Download [here](https://getcomposer.org/download/) and run Composer-Setup.exe 
+
+In the project file : 
+```
+php composer
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('SHA384', 'composer-setup.php') === '669656bab3166a7aff8a7506b8cb2d1c292f042046c5a994c43155c0be6190fa0355160742ab2e1c88d40d5be660b410') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+```
+Then 
+```
+php composer-setup.php
+php composer.phar install
+php composer.phar update
+```
+Now Please show how to Configure Database
 
 Configuration
 =============
@@ -89,6 +109,14 @@ DB_DATABASE=techiteasy
 DB_USERNAME=root
 DB_PASSWORD=root (or none)
 ```
+
+To use in local:
+Edit 'username' and 'database' with your informations:
+```
+'database'  => env('DB_DATABASE', 'techiteasy'),
+'username'  => env('DB_USERNAME', 'root'),
+```
+
 Then run the database migration with the command `php artisan migrate`
 
 Last step run the seed of the database with `php artisan db:seed`
