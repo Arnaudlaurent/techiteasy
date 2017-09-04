@@ -85,6 +85,7 @@
 					@endforeach
 				</select>
 				<br/>
+
 				{!! Form::open(array($newname => $category->id ? URL::route('admin.category.update', $category->id) : URL::route('admin.category.store'), 'method' => $category->id ? 'put' : 'post')) !!}
 
 				<label>Nom</label>
