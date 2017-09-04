@@ -49,7 +49,7 @@ class Questionnaire extends Model
         
     }
 
-    public function isCat(int $catId)
+    public function isCat($catId)
     {
       
       foreach($this->categories as $category)
@@ -69,7 +69,7 @@ class Questionnaire extends Model
     
     }
 
-    public function isQuestion(int $questionId)
+    public function isQuestion($questionId)
     {
       
       foreach($this->questions as $questions)

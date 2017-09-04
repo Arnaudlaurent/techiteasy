@@ -5,8 +5,9 @@
 @section('page', $page)
 
 @section('content')
-<h1 class="page-header"><i class="fa fa-bookmark"></i> Questionnaire <small>"<i>{{ $questionnaire->title}}</i>"</small></h1>
 
+
+	<h1 class="page-header"><i class="fa fa-bookmark"></i> Questionnaire<small>"<i>{{ $questionnaire->title}}</i>"</small></h1>
 <ol class="breadcrumb">
 	<li><a href="{!! route('admin.questionnaire.index') !!}"><i class="fa fa-arrow-circle-left"></i> Retour</a></li>
 </ol>

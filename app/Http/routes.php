@@ -11,6 +11,8 @@
   |
  */
 
+
+
 Route::get('/', [
     'as' => 'welcome', 'uses' => 'HomeController@welcome'
 ]);
@@ -20,7 +22,11 @@ Route::get('/login', [
 ]);
 
 Route::get('index', [
-    'as' => 'index', 'uses' => 'HomeController@index'
+    'as' => 'index', 'uses' => 'HomeController@showRules'
+]);
+
+Route::get('bis', [
+    'as' => 'bis', 'uses' => 'HomeController@index'
 ]);
 
 Route::get('questionnaire/{id}/launch', [
@@ -39,6 +45,7 @@ Route::post('auth/login', 'Auth\AuthController@authenticate');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 Route::post('/login', 'HomeController@authenticate');
+
 
 /*
   |--------------------------------------------------------------------------
@@ -69,6 +76,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('questionnaire', 'Admin\QuestionnaireController');
 
     Route::post('question/{id}/test', 'Admin\QuestionController@testQuestion');
+
+    Route::get('/invitation', [
+        'as' => 'invitation', 'uses' => 'Admin\InvitationController@invitation'
+    ]);
+
 });
 
 Route::get('democlass', function(){

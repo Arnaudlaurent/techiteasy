@@ -11,4 +11,36 @@
     <li{!! isset($page) && $page == 'category' ? ' class="active"' : '' !!}>
         <a href="{!! route('admin.category.index') !!}"><i class="fa fa-bookmark"></i> Catégories</a>
     </li>
+    <li{!! isset($page) && $page == 'invitation' ? ' class="active"' : '' !!}>
+        <a href="{!! route('invitation') !!}" class="blue"><i class="fa fa-envelope"></i> Invitation</a>
+    </li>
 </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

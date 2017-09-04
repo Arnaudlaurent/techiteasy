@@ -5,6 +5,26 @@
 @section('content')
 
 <h1 class="page-header"><i class="fa fa-question-circle"></i> Questionnaires</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="progress-title">test</h3>
+            <div class="progress">
+                <div class="progress-bar" style="width:70%">
+                    <div class="progress-value">70%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <form>
+        <input class="testinput" type="number" >
+        <input type="submit" class="testxmax" method="post">
+    </form>
+
+</div>
+
 
 <div class="col-md-1 form-group">
     <a href="{!! route('admin.questionnaire.index') !!}" class="btn btn-extia">Effacer <i class="fa fa-eraser" aria-hidden="true"></i></a>
@@ -21,9 +41,9 @@
             <th></th>
         </tr>	
     </thead>
-    <tbody>
+    <tbody class="xmax">
         @foreach($questionnaires as $questionnaire)
-        <tr>
+        <tr >
             <td>{{ $questionnaire->id }}</td>
             <td>{{ $questionnaire->title }}</td>
             <td>

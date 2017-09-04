@@ -22,7 +22,6 @@ class HomeController extends Controller
     	$data = [];
         return view('welcome', $data); // May use compact
     }
-
     /*
      * Display the login page for the admin backoffice
      */
@@ -37,21 +36,27 @@ class HomeController extends Controller
         return redirect()->route('index')->withSucess('Vous êtes bien connecté(e)');
     }
     public function index(){
-         $questionnaires = Questionnaire::paginate(5);
+        $questionnaires = Questionnaire::paginate(5);
 
         return view('index', compact('page', 'questionnaires')); // May use compact
 
         //display questionnaires list        
     }
-    public function launch($id){
+    public function showRules(){
+        return view('rules');
+    }
 
+    public function launch($id){
+        dump($id);die;
         $aQuestionnaire = array();
-        $questions = DB::table('questions as q')
+        /*$questions = DB::table('questions as q')
                 ->select('question_id', 'q.label as question_label' , 'q.description as description_label', 'a.label as answer_label', 'a.id as answer_id', 'a.verify as verify')
                 ->join('questionnaire_has_category as qhc', 'qhc.category_id', '=', 'q.category_id')
                 ->join('answer as a', 'a.question_id', '=', 'q.id')
                 ->where('qhc.questionnaire_id', $id)
                 ->get();
+        */
+
 
         $answers = [];
         foreach ($questions as $key => $value) {

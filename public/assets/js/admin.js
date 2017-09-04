@@ -201,14 +201,30 @@ $('#addQ').on('click', function() {
 
 });
 
+//barre de progression
+var tour = 0;
+var xMax =  $('.xmax tr').each(function(){
+    tour++;
+});
+var y = 12;
+console.log(tour);
 
+$('.testxmax').on('click' , function (event) {
+        event.preventDefault();
+        var valueinput = $('.testinput').val();
+        console.log(valueinput);
+        var dim = parseInt((valueinput*100)/12);
 
+        $('.progress-value').text(dim + '%');
+        $('.progress-bar').attr('style','width:'+dim+"%");
+});
 
-
-
-
-
-
+//Catégorie
+var boxheight1 = document.getElementsByClassName('login-panel_panel_panel-default_admin-content').clientHeight;
+var boxheight2 = document.getElementsByClassName('login-panel_panel_panel-default_admin-content 2').clientHeight;
+var diff = boxheight1 - boxheight2;
+var dimboxheight2 = boxheight2 + diff;
+console.log(diff);
 
 
 
