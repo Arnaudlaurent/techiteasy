@@ -2,63 +2,55 @@
 
 @section('title', 'Invitation')
 
-@section('page', $page)
-
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <h2 class="page-header"><i class="fa fa-envelope"></i> Inviter un utilisateur</h2>
-            <div>
+            <div class="col-md-5">
                 <div class="col-lg-12">
-                    <label>Email de l'utilisateur</label>
+                    <label>Email du candidat :</label>
                     <br/>
                     <input type="email"/>
                 </div>
-            </div>
-            <br/>
-            <div>
-                <div class="col-md-4">
-                    <label>Questionnaire obligatoire</label>
-                    <br/>
-                    <select>
+                <div class="col-md-12">
+                    <label class="col-md-7">Questionnaire obligatoire:</label>
 
-                    </select>
+                    <input class="col-md-5" type="email"/>
                 </div>
-                <div class="col-md-4">
-                    <label>Questionnaire optionnel 1</label>
-                    <br/>
-                    <input type="email"/>
+                <div class="col-md-12">
+
+                    <label class="col-md-7">Questionnaire optionnel 1:</label>
+                    <input  class="col-md-5" type="email"/>
                 </div>
-                <div class="col-md-4">
-                    <label>Questionnaire optionnel 2</label>
-                    <br/>
-                    <input type="email"/>
+                <div class="col-md-12">
+                    <label class="col-md-7">Questionnaire optionnel 2:</label>
+                    <input class="col-md-5" type="email"/>
                 </div>
-            </div>
-            <div>
 
                         <label class="col-md-12">Option de temps :</label><br/>
                         <div class="col-md-12">
                             <input type="radio"/>
                             <label>Par question </label>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             <input type="radio"/>
                             <label>Pour tout le questionnaire </label>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="number"/>
                         </div>
                         <div class="col-md-12">
                             <input type="radio"/>
                             <label>Pas de temps</label>
                         </div>
-                        <div class="col-md-12">
-                            <textarea placeholder="Message pour l'utilisateur"></textarea>
+                        <div class="col-md-6">
+                            <input type="number"/>
                         </div>
-                        <div>
-                           <button type="submit" class="btn btn-lg btn-extia btn-block"> Envoyer</button>
-                        </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="col-md-12">
+                    <textarea class="col-xs-12 col-md-12" placeholder="Message pour l'utilisateur" rows="12"></textarea>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-lg btn-extia btn-block"> Envoyer</button>
             </div>
 
         </div>

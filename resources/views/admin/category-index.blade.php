@@ -11,9 +11,8 @@
 			<h1 class="page-header"><i class="fa fa-bookmark"></i> Catégories</h1>
 			<ol class="breadcrumb">
 				<li><a href="{!! route('dashboard') !!}"><i class="fa fa-tachometer"></i> Dashboard</a></li>
-				<li><a href="{!! route('admin.category.create') !!}"><i class="fa fa-plus-square"></i> Ajouter une catégorie</a></li>
 			</ol>
-			<table class="table table-striped">
+			<table id="adri" class="table table-striped ">
 				<thead>
 				<tr>
 					<th>#</th>
@@ -62,7 +61,7 @@
 		<div class="login-panel panel panel-default admin-content nomargintop">
 			<div class="col-md-12">
 				<h2 class="page-header">Ajouter une catégorie</h2>
-				{!! Form::open(array('url' => $category->id ? URL::route('admin.category.update', $category->id) : URL::route('admin.category.store'), 'method' => $category->id ? 'put' : 'post')) !!}
+				{!! Form::open(array('url' => URL::route('admin.category.store'),'method' => 'POST','id' => '')) !!}
 				<div class="form-group">
 					<label>Nom</label>
 					{!! Form::text('name', $category->name, array('class' => 'form-control', 'placeholder' => 'Nom', '	')) !!}
@@ -79,15 +78,14 @@
 				<h2 class="page-header">Modifier une catégorie </h2>
 			</div>
 			<div class="form-group">
+
 				<select>
 					@foreach($categories as $category)
 						<option>{{ $newname = $category->name }}</option>
 					@endforeach
 				</select>
 				<br/>
-
-				{!! Form::open(array($newname => $category->id ? URL::route('admin.category.update', $category->id) : URL::route('admin.category.store'), 'method' => $category->id ? 'put' : 'post')) !!}
-
+				{!! Form::open(array('url' => URL::route('admin.category.update'),'method' => 'POST','id' => '' ))!!}
 				<label>Nom</label>
 				{!! Form::text('name', $category->name, array('class' => 'form-control', 'placeholder' => 'Nom', '	')) !!}
 			</div>
