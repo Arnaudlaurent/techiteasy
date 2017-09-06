@@ -4,22 +4,27 @@
 
 @section('content')
     <div class="row">
+        {!! Form::open(array('url' => URL::route('admin.invitation.createInvitation'),'method' => 'POST')) !!}
         <div class="col-md-12 form-group">
             <h2 class="page-header"><i class="fa fa-envelope"></i> Inviter un candidat</h2>
             <div class="col-md-6">
 
                 <div class="col-lg-12">
                     <label class="col-lg-6"> Prénom du candidat :</label>
-                    <input type="text" class="col-lg-6" placeholder="Prénom"/>
+                    {!! Form::text('prenomCandi'/*,$question->label*/, array('class' => 'form-control', 'placeholder' => 'Prénom', 'required' => 'required')) !!}
+
                 </div>
                 <div class="col-lg-12">
                     <label class="col-lg-6"> Nom du candidat :</label>
-                    <input type="text" class="col-lg-6" placeholder="Nom"/>
+                    {!! Form::text('nomCandi'/*,/*$question->label*/, array('class' => 'form-control', 'placeholder' => 'Nom', 'required' => 'required')) !!}
+
+
                 </div>
                 <br/>
                 <div class="col-lg-12">
                     <label class="col-lg-6">Email du candidat :</label>
-                    <input type="email" class="col-lg-6" placeholder="email@domaine.fr"/>
+                    {!! Form::email('emailCandi'/*, /*$question->label*/, array('class' => 'form-control', 'placeholder' => 'email@domain.fr', 'required' => 'required')) !!}
+
                 </div>
                 <div class="col-md-12">
                     <label class="col-md-6">Questionnaire obligatoire:</label>
@@ -79,6 +84,7 @@
             </div>
             <button type="submit" class="col-md-12 btn btn-lg btn-extia btn-block "> Envoyer</button>
         </div>
+        {!! Form::close() !!}
     </div>
 
 @endsection

@@ -21,6 +21,49 @@ use App\Http\Controllers\Controller;
 
 class InvitationController extends Controller
 {
+    public function index()
+    {
+        $page = 'invitation';
+        $questionnaires = Questionnaire::all();
+        $categories = Category::all();
+        return view('admin.invitation', compact('page','questionnaires','categories'));
+    }
+
+    public function store(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('admin.invitation.create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $invitation = new Invitation;
+
+        $invitation->name = $request->name;
+        $invitation->save();
+
+        return redirect()
+            ->route('admin.invitation.index')
+            ->withSuccess("L'invitation a bien été enregistré");
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|max:255|min:3'
+        ]);
+    }
+
+/*
     public function invitation(){
         return view('admin.invitation', [
             'page' => "invitation",
@@ -34,59 +77,15 @@ class InvitationController extends Controller
         if ($request->isMethod('post'))
         {
             DB::table(users)->insert([
-                'login' => $request->input('loginCandidat'),
-                'email' => $request->input('email'),
+                'login' => $request->input('prenomCandi'),
+                'email' => $request->input('emailCandi'),
                 'password' => bcrypt('')]);
         }
-        return redirect(route('admin.question.index'))
-            ->withSuccess('La question a bien été ajoutée.');
+        return redirect(route('Admin\InvitationController@invitation'))
+            ->withSuccess("L'invitation a bien été envoyé");
     }
-/*
-    public function store(Request $request) {
-        if ($request->isMethod('post')) {
-
-            $idQuestion = DB::table('questions')->insertGetId(
-                ['level' => $request->input('difficulties'), 'label' => $request->input('question'), 'description' => $request->input('description'), 'category_id' => $request->input('categories'), 'user_id' => 1]);
 
 
-            //insert answers
-            $valide_1 = (null == $request->input('reponse_valide_1')  ? "0" : "1");
-            $valide_2 = (null == $request->input('reponse_valide_2')  ? "0" : "1");
-
-            DB::table('answers')->insert(
-                ['label' => $request->input('answer1'), 'verify' => $valide_1, 'question_id'=>$idQuestion]);
-            DB::table('answers')->insert(
-                ['label' => $request->input('answer2'), 'verify' => $valide_2, 'question_id'=>$idQuestion]);
-            if($request->input('answer3'))
-            {
-                $valide_3 = is_null($request->input('reponse_valide_3')  ? "0" : "1");
-                DB::table('answers')->insert(
-                    ['label' => $request->input('answer3'), 'verify' => $valide_3 , 'question_id'=>$idQuestion]);
-            }
-            if($request->input('answer4'))
-            {
-                $valide_4 = is_null($request->input('reponse_valide_4')  ? "0" : "1");
-                DB::table('answers')->insert(
-                    ['label' => $request->input('answer4'), 'verify' => $valide_4, 'question_id'=>$idQuestion]);
-            }
-            if($request->input('answer5'))
-            {
-                $valide_5 = is_null($request->input('reponse_valide_5')  ? "0" : "1");
-                DB::table('answers')->insert(
-                    ['label' => $request->input('answer5'), 'verify' => $valide_5, 'question_id'=>$idQuestion]);
-            }
-
-            if($request->input('answer6'))
-            {
-                $valide_6 = is_null($request->input('reponse_valide_6')  ? "0" : "1");
-                DB::table('answers')->insert(
-                    ['label' => $request->input('answer6'), 'verify' => $valide_6, 'question_id'=>$idQuestion]);
-            }
-
-        }
-        return redirect(route('admin.question.index'))
-            ->withSuccess('La question a bien été ajoutée.');
-    } */
     /*public function testMail(){
         //fonction de mail
         $mail = 'aarnal@extia.fr'; // Déclaration de l'adresse de destination.

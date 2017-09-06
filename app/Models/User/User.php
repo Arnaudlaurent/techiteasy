@@ -1,21 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 
-use Illuminate\Auth\Authenticatable;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements AuthenticatableContract,
-                                    AuthorizableContract,
-                                    CanResetPasswordContract
+
+abstract class User extends Model
 {
-    use Authenticatable, Authorizable, CanResetPassword;
 
     /**
      * The database table used by the model.
