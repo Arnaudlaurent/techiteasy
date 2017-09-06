@@ -46,10 +46,7 @@ class QuestionnaireController extends Controller
 
         $categories = Category::all();
 
-        $questions = $questionnaire->questions;
-        //$categoriesQ = $questionnaire->categories;
-
-        return view('admin.questionnaireShow', compact('page', 'questionnaire', 'categories', 'questions'));
+        return view('admin.questionnaireShow', compact('page', 'questionnaire', 'categories'));
     }
 
     /**

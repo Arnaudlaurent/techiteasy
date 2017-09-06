@@ -80,6 +80,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/invitation', [
         'as' => 'invitation', 'uses' => 'Admin\InvitationController@invitation'
     ]);
+    //Route::resource('invitation', 'Admin\InvitationController');
 
 });
 

@@ -9,20 +9,85 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Routing\Route;
+use Illuminate\Pagination\Paginator;
+use DB;
+use Validator;
 use App\Http\Requests;
+use App\Models\Question;
+use App\Models\Questionnaire;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 
 class InvitationController extends Controller
 {
     public function invitation(){
-        $data = [
+        return view('admin.invitation', [
             'page' => "invitation",
-        ];
-        return view('admin.invitation',$data);
+            'questionnaires' => Questionnaire::all(),
+            'categories' => Category::all(),
+        ]);
     }
 
-    public function testMail(){
+
+    public function createInvitation(){
+        if ($request->isMethod('post'))
+        {
+            DB::table(users)->insert([
+                'login' => $request->input('loginCandidat'),
+                'email' => $request->input('email'),
+                'password' => bcrypt('')]);
+        }
+        return redirect(route('admin.question.index'))
+            ->withSuccess('La question a bien été ajoutée.');
+    }
+/*
+    public function store(Request $request) {
+        if ($request->isMethod('post')) {
+
+            $idQuestion = DB::table('questions')->insertGetId(
+                ['level' => $request->input('difficulties'), 'label' => $request->input('question'), 'description' => $request->input('description'), 'category_id' => $request->input('categories'), 'user_id' => 1]);
+
+
+            //insert answers
+            $valide_1 = (null == $request->input('reponse_valide_1')  ? "0" : "1");
+            $valide_2 = (null == $request->input('reponse_valide_2')  ? "0" : "1");
+
+            DB::table('answers')->insert(
+                ['label' => $request->input('answer1'), 'verify' => $valide_1, 'question_id'=>$idQuestion]);
+            DB::table('answers')->insert(
+                ['label' => $request->input('answer2'), 'verify' => $valide_2, 'question_id'=>$idQuestion]);
+            if($request->input('answer3'))
+            {
+                $valide_3 = is_null($request->input('reponse_valide_3')  ? "0" : "1");
+                DB::table('answers')->insert(
+                    ['label' => $request->input('answer3'), 'verify' => $valide_3 , 'question_id'=>$idQuestion]);
+            }
+            if($request->input('answer4'))
+            {
+                $valide_4 = is_null($request->input('reponse_valide_4')  ? "0" : "1");
+                DB::table('answers')->insert(
+                    ['label' => $request->input('answer4'), 'verify' => $valide_4, 'question_id'=>$idQuestion]);
+            }
+            if($request->input('answer5'))
+            {
+                $valide_5 = is_null($request->input('reponse_valide_5')  ? "0" : "1");
+                DB::table('answers')->insert(
+                    ['label' => $request->input('answer5'), 'verify' => $valide_5, 'question_id'=>$idQuestion]);
+            }
+
+            if($request->input('answer6'))
+            {
+                $valide_6 = is_null($request->input('reponse_valide_6')  ? "0" : "1");
+                DB::table('answers')->insert(
+                    ['label' => $request->input('answer6'), 'verify' => $valide_6, 'question_id'=>$idQuestion]);
+            }
+
+        }
+        return redirect(route('admin.question.index'))
+            ->withSuccess('La question a bien été ajoutée.');
+    } */
+    /*public function testMail(){
         //fonction de mail
         $mail = 'aarnal@extia.fr'; // Déclaration de l'adresse de destination.
         if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail)) // On filtre les serveurs qui rencontrent des bogues.
@@ -74,7 +139,7 @@ class InvitationController extends Controller
         mail($mail,$sujet,$message,$header);
 //==========
 
-    }
+    }*/
 }
 
 

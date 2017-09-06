@@ -20,6 +20,10 @@ class CreateUsersTable extends Migration
             $table->string('password', '255');
             $table->rememberToken();
             $table->timestamps();
+            $table->tinyInteger('questionnaire0');
+            $table->tinyInteger('questionnaire1');
+            $table->tinyInteger('questionnaire2');
+            $table->time('option_tps');
         });
     }
 

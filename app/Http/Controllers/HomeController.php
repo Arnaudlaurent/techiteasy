@@ -35,6 +35,10 @@ class HomeController extends Controller
  
         return redirect()->route('index')->withSucess('Vous êtes bien connecté(e)');
     }
+    /*public function authenticateCandidat(){
+
+    }*/
+
     public function index(){
         $questionnaires = Questionnaire::paginate(5);
 
