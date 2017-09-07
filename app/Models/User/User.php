@@ -3,6 +3,8 @@
 namespace App\Models\User;
 
 
+use App\Models\Admin;
+use App\Models\Candidat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
@@ -22,26 +24,22 @@ abstract class User extends Model
      *
      * @var array
      */
-    protected $fillable = ['login', 'password', 'email'];
+    protected $fillable = ['email'];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
-
     public $timestamps = true;
     protected $dates = ['update_at', 'created_at'];
 
-
-    public function questions()
+    public function admins()
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany(Admin::class);
     }
-
-    public function questionnaires()
+    public function candidats()
     {
-        return $this->hasMany(Questionnaire::class);
+        return $this->hasMany(Candidat::class);
     }
 }
