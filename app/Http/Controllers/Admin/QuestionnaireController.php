@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use DB;
 use Date;
+use Response;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -46,7 +47,9 @@ class QuestionnaireController extends Controller
 
         $categories = Category::all();
 
-        return view('admin.questionnaireShow', compact('page', 'questionnaire', 'categories'));
+        $questions = $questionnaire->questions;
+
+        return view('admin.questionnaireShow', compact('page', 'questionnaire', 'categories' , 'questions'));
     }
 
     /**
@@ -111,6 +114,22 @@ class QuestionnaireController extends Controller
         return view('admin.questionnaire-create-update', compact('page', 'questionnaire','categories', 'questions', 'questionsAll', 'catsQuestionnaire'));
     }
 
+
+    public function questionsBycat(Request $request) {
+       /*if ($this->request->is('ajax')) {
+            debug($this->request->data);
+	            die();
+	        }*/
+	        $catagories = $request->cat;
+
+	        $questions = Question::select('questions.*', 'categories.name')
+	            ->join('categories', 'categories.id', '=', 'questions.category_id')
+	            ->whereIn('category_id', $catagories)
+	            ->get();
+	        //$q->questions();
+	        return Response::json($questions);
+	    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -119,7 +138,8 @@ class QuestionnaireController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        
+
+        dump($request->all()); die;
 
         $page = 'questionnaire';
         $date = Date::now();

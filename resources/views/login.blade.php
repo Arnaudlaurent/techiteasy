@@ -62,7 +62,7 @@
                     <br>
 
                     <div class="text-right">
-                        <a href="{{ route('email') }}" class="text-right forgot-password">
+                        <a href="" class="text-right forgot-password">
                           Mot de passe oublié ?
                         </a>
                     </div>

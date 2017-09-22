@@ -12,7 +12,7 @@ class CreateCandidatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('users__candidats', function (Blueprint $table) {
             $table->increments('id');
             $table->string('first_name', '255');
             $table->string('name', '255');

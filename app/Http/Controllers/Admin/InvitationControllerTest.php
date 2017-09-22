@@ -11,49 +11,105 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Pagination\Paginator;
-use Carbon\Carbon;
 use DB;
 use Validator;
 use App\Http\Requests;
 use App\Models\Question;
 use App\Models\Questionnaire;
 use App\Models\Category;
-use App\Models\Candidat;
 use App\Http\Controllers\Controller;
 
-class InvitationController extends Controller
+class InvitationControllerTest extends Controller
 {
-
-
-    public function invitation(){
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
         $page = 'invitation';
         $questionnaires = Questionnaire::all();
         $categories = Category::all();
+        return view('admin.invitation', compact('page','questionnaires','categories'));
+    }
 
-        return view('admin.invitation', compact('page', 'questionnaires', 'categories'));
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create() {
+        $page = 'invitation';
+        $invitation = new invitation;
+
+        $cats = DB::table('categories')
+            ->get();
+        $difficulties = array("1" => "Débutant", "2" => "Intermédiare", "3" => "Difficile");
+        $categories = [];
+        foreach ($cats as $cat) {
+            $categories[$cat->id] = $cat->name;
+        }
+        error_log(print_r($categories, true));
+        return view('admin.questionAjout', compact('page', 'question', 'categories', 'difficulties'));
+    }
+
+    public function store(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('admin.invitation.create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $invitation = new Invitation;
+
+        $invitation->name = $request->name;
+        $invitation->save();
+
+        return redirect()
+            ->route('admin.invitation.index')
+            ->withSuccess("L'invitation a bien été enregistré");
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|max:255|min:3'
+        ]);
+    }
+
+/*
+    public function invitation(){
+        return view('admin.invitation', [
+            'page' => "invitation",
+            'questionnaires' => Questionnaire::all(),
+            'categories' => Category::all(),
+        ]);
     }
 
 
-    public function createInvitation(Request $request){
-
+    public function createInvitation(){
         if ($request->isMethod('post'))
         {
-            $candidat = Candidat::create( $request->all() );
-
-            /*DB::table('users__candidats')->insert([
-                'first_name' => $request->input('prenomCandi'),
-                'name'=>$request->input('nomCandi'),
+            DB::table(users)->insert([
+                'login' => $request->input('prenomCandi'),
                 'email' => $request->input('emailCandi'),
-                'q0'=>$request->input('q0'),
-                'q1'=>$request->input('q1'),
-                'q2'=>$request->input('q2'),
-                'option_tps'=>$request->input('time'),
-                ]);*/
+                'password' => bcrypt('')]);
         }
-        return redirect(route('invitation'))
+        return redirect(route('Admin\InvitationController@invitation'))
             ->withSuccess("L'invitation a bien été envoyé");
     }
+
 
     /*public function testMail(){
         //fonction de mail

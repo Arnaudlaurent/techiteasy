@@ -11,7 +11,7 @@ class AdminsTableSeeder extends Seeder
      */
     public function run()
     {
-        $admin = DB::table('admins')->insert([
+        $admin = DB::table('users__admins')->insert([
             'login' => 'admin',
             'first_name'=>'benjamin',
             'name'=>'lemee',

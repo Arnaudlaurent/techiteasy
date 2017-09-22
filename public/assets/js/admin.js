@@ -3,21 +3,30 @@ var l = []; // events listeners
 
 
 f.loadCategoryDeleteModal = function() {
-	var categoryId        = $(this).data('id');
-	var categoryUrlDelete = $(this).data('urldelete');
-	$('#category-name-delete').html($('#category-name-' + categoryId).html());
-	$('#category-delete-form').attr('action', categoryUrlDelete);
+    var categoryId        = $(this).data('id');
+    var categoryUrlDelete = $(this).data('urldelete');
+    $('#category-name-delete').html($('#category-name-' + categoryId).html());
+    $('#category-delete-form').attr('action', categoryUrlDelete);
 };
 
 $('.btn-delete-category').on('click', f.loadCategoryDeleteModal);
 
+f.loadCandidatDeleteModal = function() {
+    var candidatId        = $(this).data('id');
+    var candidatUrlDelete = $(this).data('urldelete');
+    $('#candidat-name-delete').html($('#candidat-name-' + candidatId).html());
+    $('#candidat-delete-form').attr('action', candidatUrlDelete);
+};
+
+$('.btn-delete-candidat').on('click', f.loadCandidatDeleteModal);
+
 $("#addReponse").on('click', function () {
     var nbRep = parseInt($("#nbReponseText").text(), 10);
     $(".form-group").append('<div class="margin-bottom answer input-group">' +
-            '<span class="input-group-addon">' +
-            '<input type="radio" name="answer" value="' + nbRep + '">' +
-            '</span>' +
-            '<input id="answer' + nbRep + '" type="text" class="form-control" placeholder="Réponce '+parseInt(nbRep+1,10)+'"/>' + '\
+        '<span class="input-group-addon">' +
+        '<input type="radio" name="answer" value="' + nbRep + '">' +
+        '</span>' +
+        '<input id="answer' + nbRep + '" type="text" class="form-control" placeholder="Réponce '+parseInt(nbRep+1,10)+'"/>' + '\
 </div>');
     $("#nbReponseText").html(nbRep + 1);
     $("#nbReponse").val(nbRep + 1);
@@ -40,26 +49,26 @@ $("#removeReponse").on('click', function () {
 var dynatable = $('#mytable').dynatable({
 
     features: {
-      paginate: false,
-      recordCount: false,
-      sorting: true,
-      search: false    }
-  }).data('dynatable');
+        paginate: false,
+        recordCount: false,
+        sorting: true,
+        search: false    }
+}).data('dynatable');
 
 $('#search-category').change( function() {
     var value = $(this).val();
     if (value === "Filtrer par catégorie") {
-      dynatable.queries.remove("catégorie");
+        dynatable.queries.remove("catégorie");
     } else {
         dynatable.queries.add("catégorie", value);
     }
     dynatable.process();
-  });
+});
 
 $('#search-difficulte').change( function() {
     var value = $(this).val();
     if (value === "Filtrer par difficulté") {
-      dynatable.queries.remove("difficulté");
+        dynatable.queries.remove("difficulté");
     }else if(value === "Débutant"){
         console.log(value);
         value = 1;
@@ -74,22 +83,22 @@ $('#search-difficulte').change( function() {
         dynatable.queries.add("difficulté", value);
     }
     dynatable.process();
-  });
+});
 
 var dynatable2 = $('#mytable2').dynatable({
     features: {
-      paginate: false,
-      recordCount: false,
-      sorting: true,
-      search: true
+        paginate: false,
+        recordCount: false,
+        sorting: true,
+        search: true
     }
-  }).data('dynatable');
+}).data('dynatable');
 
 $('#search-category, #search-difficulte, #search-category2').on('click', function () {
     $('.filtre').hide();
 });
 
-    
+
 $('#dynatable-query-search-mytable2').addClass('btn btn-extia').css('marginBottom', '20px');
 
 $('#dynatable-search-mytable2').css('marginLeft', '30px');
@@ -107,13 +116,13 @@ $("#eraseFiltre").on('click', function () {
     console.log('testssssss');
     console.log(id);
 
-    
+
 });
 */
 
 //Suppression questions, questionnaires
 $(".suppression-badge").on('click', function () {
-    
+
     $(this).each(function(){
 
         var url = $(this).data('url');
@@ -121,10 +130,10 @@ $(".suppression-badge").on('click', function () {
     });
 });
 
-$('.ok').on('click', function(){  
-   $("#delete-form").attr('action', url);
+$('.ok').on('click', function(){
+    $("#delete-form").attr('action', url);
 });
-  
+
 /*var dynatable3 = $('#mytable3').dynatable({
     features: {
       paginate: false,
@@ -145,6 +154,72 @@ $('#search-category2').change( function() {
   });*/
 
 
+//Ajout des questions à la modale en fonction catégorie questionnaire
+$('#addQ').on('click', function() {
+
+    var catQ = [];
+    //var qId = $('.questionsQuestionnaire tr').data('t');
+    var lien = $(this).data('url');
+    var token = $(this).data('token');
+
+    console.log(qId);
+
+    //Récupère les catégories cochés
+    $('#cat-table input').each(function() {
+        var valCat = $(this).attr('value');
+        if ($(this).is(':checked')) {
+            if ($.inArray(valCat, catQ) == -1) {
+                catQ.push(valCat); //récupère id des catégories
+            }
+        }else{
+            if ($.inArray(valCat, catQ) != -1) {
+                catQ.splice(catQ.indexOf(valCat),1);
+            }
+        }
+    });
+
+    $.ajax({
+        url: lien,
+        method: 'GET',
+        dataType: 'JSON',
+        data: {
+            '_token': token,
+            'cat': catQ,
+            '_method': 'GET'
+        },
+        success: function(questions) {
+
+            $('.questBycat tr').remove();
+
+            $.each(questions, function(key, val){
+
+                var checked = qId == val['id'] ? 'checked' : '';
+                console.log(checked);
+
+                $('.questBycat').append(
+
+                    '<tr>'+
+                    '<td>'+ val['id'] +'</td>'+
+                    '<td>'+ val['name'] +'</td>'+
+                    '<td>'+ val['label'] +'</td>'+
+                    '<td>'+ val['description'] +'</td>'+
+                    '<td>'+ val['level'] +'</td>'+
+                    '<td>'+
+                    '<input type="checkbox" name="questions[]" value="'+val['id']+'" data-id="'+val['id']+'" data-href="http://localhost:8000/admin/question/'+val['id']+'" data-cat="'+val['name']+'"'+
+                    'data-lvl="'+val['level']+'" data-label="'+val['label']+'" data-des="'+val['description']+'" '+checked+' />'+
+                    '</td>'+
+                    '</tr>'
+
+                );
+
+
+            });
+        },
+        error: function(statut, erreur){
+            alert('La requête n\'a pas abouti');
+        }
+    });
+});
 
 //Ajout des questions à un questionnaire
 var t = [];
@@ -162,9 +237,9 @@ $('#addQuestions').on('click', function() {
         var label = $(this).data('label');
         var descri = $(this).data('des');
 
-        if ($(this).is(':checked')) { 
+        if ($(this).is(':checked')) {
             if ($.inArray(id, t) == -1) {
-                
+
                 var newQues = $('#mytable3 > tbody:last').append(
                     '<tr id="sp-'+id+'" data-t="'+id+'">'+
                     '<td>'+id+'</td>'+
@@ -180,80 +255,31 @@ $('#addQuestions').on('click', function() {
         }else{
 
             if ($.inArray(id, t) != -1) {
-               $('#sp-'+id).remove();
-               t.splice(t.indexOf(id),1);
+                $('#sp-'+id).remove();
+                t.splice(t.indexOf(id),1);
             }
         }
     });
     $('#myModalQuestions').modal('hide');
 });
 
-//Ajout des questions à la modale en fonction catégorie questionnaire
-var catQ = [];
+//script option temps invitation
+$('.timer').hide();
+$('.tpsInvit').on('click', 'input[type=radio]', function(){
 
-$('#cat-table input').each(function() {
-    if ($(this).is(':checked')) {
-        catQ.push($(this).attr('value')); //récupère tab
+    $('.timer').fadeIn(500);
+
+    if ($(this).data('tps') == 'noTime'){
+        $('.timer').fadeOut(500);
     }
 });
 
-$('#addQ').on('click', function() {
-
-});
-
-//barre de progression
-var tour = 0;
-var xMax =  $('.xmax tr').each(function(){
-    tour++;
-});
-var y = 12;
-console.log(tour);
-
-$('.testxmax').on('click' , function (event) {
-        event.preventDefault();
-        var valueinput = $('.testinput').val();
-        console.log(valueinput);
-        var dim = parseInt((valueinput*100)/12);
-
-        $('.progress-value').text(dim + '%');
-        $('.progress-bar').attr('style','width:'+dim+"%");
-});
-
-//Catégorie
-var boxheight1 = document.getElementsByClassName('login-panel_panel_panel-default_admin-content').clientHeight;
-var boxheight2 = document.getElementsByClassName('login-panel_panel_panel-default_admin-content 2').clientHeight;
-var diff = boxheight1 - boxheight2;
-var dimboxheight2 = boxheight2 + diff;
-console.log(diff);
 
 
 
-
-
-/*
-$(".suppression-badge").on('click', function () {
-    var url = $(this).data('url');
-    var CSRF_TOKEN = $('#csrf').attr('value');
-
-    console.log(url);
-    
-    var aJax = $.ajax({
-        type: "POST",
-        url: url + '/test',
-        dataType: 'JSON',
-        data: {_token: CSRF_TOKEN}
-    })
-            .done(function (response) {
-                if (response.data) {
-                    $("#delete-text").text("êtes vous sure de vouloir supprimer cette question?");
-                    $("#delete-btn").attr("disabled", false);
-                } else {
-                    $("#delete-text").text("Impossible de supprimer cette question, elle est utilisée dans des un questionnaire");
-                    $("#delete-btn").attr("disabled", true);
-                }
-            })
-            .fail(function () {
-                alert("error");
-            });
-    $("#delete-form").attr('action', url);
+ /*   .each( function(){
+    if($(this).is('checked')){
+        $('.timer').show();
+    }
+    else {$('.timer').hide();}
 });*/

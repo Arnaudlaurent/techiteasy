@@ -14,14 +14,16 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
+            $table->integer('admin');
+            $table->integer('candidat');
             $table->integer('admin_id')->unsigned()->nullable();
             $table->integer('candidat_id')->unsigned()->nullable();
 
             $table->unique(['admin_id', 'candidat_id']);
 
             #foreign keys
-            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('SET NULL');
-            $table->foreign('candidat_id')->references('id')->on('candidats')->onDelete('SET NULL');
+            $table->foreign('admin_id')->references('id')->on('users__admins')->onDelete('SET NULL');
+            $table->foreign('candidat_id')->references('id')->on('users__candidats')->onDelete('SET NULL');
         });
     }
 

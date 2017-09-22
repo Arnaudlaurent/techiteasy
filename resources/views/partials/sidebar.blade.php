@@ -1,9 +1,9 @@
 <ul class="nav nav-sidebar">
-	<li{!! isset($page) && $page == 'dashboard' ? ' class="active"' : '' !!}>
+    <li{!! isset($page) && $page == 'dashboard' ? ' class="active"' : '' !!}>
         <a href="{!! route('dashboard') !!}"><i class="fa fa-tachometer"></i> Dashboard</a>
     </li>
     <li{!! isset($page) && $page == 'questionnaire' ? ' class="active"' : '' !!}>
-        <a href="{!! route('admin.questionnaire.index') !!}"><i class="fa fa-file-text"></i></i> Questionnaire</a>
+        <a href="{!! route('admin.questionnaire.index') !!}"><i class="fa fa-file-text"></i></i> Questionnaires</a>
     </li>
     <li{!! isset($page) && $page == 'question' ? ' class="active"' : '' !!}>
         <a href="{!! route('admin.question.index') !!}"><i class="fa fa-question-circle"></i> Questions</a>
@@ -11,11 +11,16 @@
     <li{!! isset($page) && $page == 'category' ? ' class="active"' : '' !!}>
         <a href="{!! route('admin.category.index') !!}"><i class="fa fa-bookmark"></i> Catégories</a>
     </li>
+</ul>
+<h5><i class="fa fa-users" aria-hidden="true"></i> Candidats</h5>
+<ul class="nav nav-sidebar">
     <li{!! isset($page) && $page == 'invitation' ? ' class="active"' : '' !!}>
         <a href="{!! route('invitation') !!}" class="blue"><i class="fa fa-envelope"></i> Invitation</a>
     </li>
+    <li{!! isset($page) && $page == 'suppression' ? ' class="active"' : '' !!}>
+        <a href="{!! route('suppression') !!}" class="blue"><i class="fa fa-times"></i> Suppression de Candidats</a>
+    </li>
 </ul>
-
 
 
 

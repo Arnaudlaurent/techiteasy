@@ -34,28 +34,6 @@
 				@endforeach
 					</tbody>
 				</table>
-				{!! $categories->render() !!}
-				<div id="categoryDeleteModal" class="modal fade" tabindex="-1" role="dialog">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							{!! Form::open(array('url' => URL::route('admin.category.destroy', 0), 'method' => 'DELETE', 'id' => 'category-delete-form')) !!}
-
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									<h4 class="modal-title">Supprimer la catégorie "<span id="category-name-delete"></span>"</h4>
-								</div>
-								<div class="modal-body">
-									<p>Attention en supprimant cette catégorie toute les questions liées n'y seront plus attribuées. Êtes vous certain de de vouloir supprimer cette catégorie ?</p>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-									<button type="submit" class="btn btn-extia">Supprimer</button>
-								</div>
-							{!! Form::close() !!}
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 

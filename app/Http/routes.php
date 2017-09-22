@@ -52,10 +52,10 @@ Route::post('/login', 'HomeController@authenticate');
   | Reset password 
   |--------------------------------------------------------------------------
  */
-Route::get('/password/email', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('email');
+/*Route::get('/password/email', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('email');
 Route::post('/sendResetLink', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('valideEmail');
 
-Route::post('/password/reset', 'Auth\ResetPasswordController@showResetForm')->name('reset');
+Route::post('/password/reset', 'Auth\ResetPasswordController@showResetForm')->name('reset');*/
 
 /*
   |--------------------------------------------------------------------------
@@ -75,15 +75,22 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('reponse', 'Admin\ReponseController');
     Route::resource('questionnaire', 'Admin\QuestionnaireController');
 
+    Route::get('questions/questionsBycategories', 'Admin\QuestionnaireController@questionsBycat')->name('questionsBycat');
+
     Route::post('question/{id}/test', 'Admin\QuestionController@testQuestion');
 
     Route::get('/invitation', [
         'as' => 'invitation', 'uses' => 'Admin\InvitationController@invitation'
     ]);
-    //Route::resource('invitation', 'Admin\InvitationController');
 
+    Route::get('/suppression', [
+        'as' => 'suppression', 'uses' => 'Admin\SuppressionCandidatController@vueSuppression'
+    ]);
+  /* Route::resource('/invitation', 'Admin\InvitationController@invitation');*/
+    Route::post('/invitationyepa', [
+        'as' => 'createInvitation', 'uses' => 'Admin\InvitationController@createInvitation'
+    ]);
 });
 
-Route::get('democlass', function(){
 
-});
+Route::get('democlass', function(){});

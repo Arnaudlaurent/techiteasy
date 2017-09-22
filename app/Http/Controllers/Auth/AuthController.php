@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Auth;
-use App\Models\Users;
+
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -32,9 +33,7 @@ class AuthController extends Controller
     public function authenticate(Request $request)
     {
         if( $request->isMethod('post') == true)
-        {   
-            //dump($request->all()); die; 
-
+        {
             $this->validate($request,[
                 'login' => 'required|max:255',
                 'password' => 'required|min:4',
@@ -47,15 +46,14 @@ class AuthController extends Controller
             }else{
                 $remember = false;
             }
-           
-            
+
             if(Auth::attempt($credentials, $remember))
             {
                return redirect()->intended($this->redirectPath)->withSuccess('Vous êtes connecté(e)');
                
             }else{
-              
-              return back()->withInput($request->only('email'))->withErrors('Combinaison login / mot de passe inconnu.'); 
+
+              return back()->withInput($request->only('email'))->withErrors('Combinaison login / mot de passe inconnu.');
             }
         }
 
@@ -70,7 +68,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return Admin::create([
             'login' => $data['login'],
             'password' => bcrypt($data['password']),
         ]);

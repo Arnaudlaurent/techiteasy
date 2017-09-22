@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DB;
+use Date;
+use Response;
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Pagination\Paginator;
-use DB;
-use Validator;
+
 use App\Http\Requests;
 use App\Models\Question;
 use App\Models\Category;
 use App\Http\Controllers\Controller;
+use App\Models\Questionnaire;
+use App\Models\Answer;
 
 class QuestionController extends Controller {
 
@@ -20,9 +25,9 @@ class QuestionController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        
+
         $page = 'question';
-        
+
         $questions = Question::select('questions.id', 'level', 'label', 'description', 'name')
                 ->join('categories', 'questions.category_id', '=', 'categories.id')
                 ->paginate($this->nbPaginate);
@@ -44,7 +49,7 @@ class QuestionController extends Controller {
     public function create() {
         $page = 'question';
         $question = new Question;
-        
+
         $cats = DB::table('categories')
                 ->get();
         $difficulties = array("1" => "Débutant", "2" => "Intermédiare", "3" => "Difficile");
@@ -67,12 +72,12 @@ class QuestionController extends Controller {
 
             $idQuestion = DB::table('questions')->insertGetId(
                     ['level' => $request->input('difficulties'), 'label' => $request->input('question'), 'description' => $request->input('description'), 'category_id' => $request->input('categories'), 'user_id' => 1]);
-        
+
 
             //insert answers
             $valide_1 = (null == $request->input('reponse_valide_1')  ? "0" : "1");
             $valide_2 = (null == $request->input('reponse_valide_2')  ? "0" : "1");
-            
+
              DB::table('answers')->insert(
                     ['label' => $request->input('answer1'), 'verify' => $valide_1, 'question_id'=>$idQuestion]);
              DB::table('answers')->insert(
@@ -95,7 +100,7 @@ class QuestionController extends Controller {
                  DB::table('answers')->insert(
                     ['label' => $request->input('answer5'), 'verify' => $valide_5, 'question_id'=>$idQuestion]);
              }
-                 
+
              if($request->input('answer6'))
              {
                  $valide_6 = is_null($request->input('reponse_valide_6')  ? "0" : "1");
@@ -163,7 +168,7 @@ class QuestionController extends Controller {
         }
 
         $reponses = DB::table('answers')->where('question_id', '=',$id)->get();
-        
+
         $i = 0;
 
         $aReponses = array_fill(0, 6, null);
@@ -193,14 +198,14 @@ class QuestionController extends Controller {
         $question->label = $request->input('description');
         $question->description = $request->input('question');
         $question->level = $request->input('difficulties');
-        
+
         //we save
         $question->save();
 
-       
+
         //reinsert all answers
         if($request->input('reponse_1_id')){
-            
+
             $valide = (null == $request->input('reponse_valide_1')  ? "0" : "1");
 
             DB::table('answers')
@@ -213,7 +218,7 @@ class QuestionController extends Controller {
         }
 
         if($request->input('reponse_2_id')){
-            
+
             $valide = (null == $request->input('reponse_valide_2')  ? "0" : "1");
 
             DB::table('answers')
@@ -270,7 +275,7 @@ class QuestionController extends Controller {
         elseif ($request->input('answer6')) {
 
             $valide_6 = (null == $request->input('reponse_valide_6')  ? "0" : "1");
-          
+
             DB::table('answers')->insert(
                     ['label' => $request->input('answer6'), 'verify' => $valide_6 , 'question_id'=>$id]);
         }
@@ -287,13 +292,13 @@ class QuestionController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        
+
        $answers = DB::table('answers')->where('question_id', '=', $id)->delete();
-       
+
        $questionnaire = DB::table('question_questionnaire')->where('question_id', '=', $id)->delete();
 
        $question =  DB::table('questions')->where('id', '=', $id)->delete();
-       
+
 
         return redirect(route('admin.question.index'))
             ->withSuccess('La question a bien été suprimée.');

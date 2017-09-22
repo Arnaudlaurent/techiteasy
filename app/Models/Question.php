@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\User\User;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
@@ -26,7 +26,7 @@ class Question extends Model
 
     public function user()
     {
-        return $this->belongsToMany(Admin::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function questionnaires()
