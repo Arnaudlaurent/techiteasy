@@ -36,9 +36,10 @@ class InvitationController extends Controller
 
 
     public function createInvitation(Request $request){
-dump($request->all()); die;
+
         if ($request->isMethod('post'))
         {
+            dump($request->all());
             $candidat = DB::table('users__candidats')->insert($request->except(['_token']));
 
             /*DB::table('users__candidats')->insert([

@@ -71,15 +71,15 @@
                             <br/>
                             <label class="col-md-6">Option de temps :</label><input name="option_tps" type="time" class="col-md-6 timer"/><br/>
                             <div class="col-md-12">
-                                <input type="radio" name="ch"/>
+                                <input type="radio" name="option_tps"/>
                                 <label>Par question </label>
                             </div>
                             <div class="col-md-12">
-                                <input type="radio" name="ch"/>
+                                <input type="radio" name="option_tps"/>
                                 <label>Pour tout le questionnaire </label>
                             </div>
                             <div class="col-md-12">
-                                <input type="radio" name="ch" data-tps="noTime"/>
+                                <input type="radio" name="option_tps" data-tps="noTime"/>
                                 <label>Pas de temps</label>
                             </div>
                         </div>
