@@ -158,7 +158,7 @@ $('#search-category2').change( function() {
 $('#addQ').on('click', function() {
 
     var catQ = [];
-    //var qId = $('.questionsQuestionnaire tr').data('t');
+    var qId = $('.questionsQuestionnaire tr').data('t');
     var lien = $(this).data('url');
     var token = $(this).data('token');
 

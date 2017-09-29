@@ -53,7 +53,7 @@
                 </span>
             @endforeach
             </td>
-            <td>{{ $questionnaire->updated_at->format('d/m/Y') }}</td>
+            <td>{{ Date::parse($questionnaire->updated_at)->format('d/m/Y') }}</td>
             <td>
                 <a class="question-badge view-badge" href="{!! route('admin.questionnaire.show', $questionnaire->id) !!}" value="{{ $questionnaire->id }}" alt="voir question"><i class="fa fa-eye"></i></a>
                 <a class="question-badge edition-badge" href="{!! route('admin.questionnaire.edit', $questionnaire->id) !!}" value="{{ $questionnaire->id }}" ><i class="fa fa-pencil-square-o"></i></a>

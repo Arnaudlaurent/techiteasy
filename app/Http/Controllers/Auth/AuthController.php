@@ -32,17 +32,20 @@ class AuthController extends Controller
 
     public function authenticate(Request $request)
     {
+
+
         if( $request->isMethod('post') == true)
         {
             $this->validate($request,[
                 'login' => 'required|max:255',
                 'password' => 'required|min:4',
             ]);
-            
+
             $credentials = $request->only('login', 'password');
 
             if ($request->remember == 'yes') {
                 $remember = true;
+
             }else{
                 $remember = false;
             }
@@ -68,6 +71,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+
         return Admin::create([
             'login' => $data['login'],
             'password' => bcrypt($data['password']),

@@ -69,17 +69,17 @@
                     <div class="tpsInvit">
                         <div class="col-md-12">
                             <br/>
-                            <label class="col-md-6">Option de temps :</label><input type="time" class="col-md-6 timer"/><br/>
+                            <label class="col-md-6">Option de temps :</label><input name="option_tps" type="time" class="col-md-6 timer"/><br/>
                             <div class="col-md-12">
-                                <input type="radio" name="time"/>
+                                <input type="radio" name="ch"/>
                                 <label>Par question </label>
                             </div>
                             <div class="col-md-12">
-                                <input type="radio" name="time"/>
+                                <input type="radio" name="ch"/>
                                 <label>Pour tout le questionnaire </label>
                             </div>
                             <div class="col-md-12">
-                                <input type="radio" name="time" data-tps="noTime"/>
+                                <input type="radio" name="ch" data-tps="noTime"/>
                                 <label>Pas de temps</label>
                             </div>
                         </div>

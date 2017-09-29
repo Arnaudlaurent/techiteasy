@@ -26,7 +26,7 @@ class Questionnaire extends Model
      * Disable the table timestamps
      */
     protected $dates = ['update_at', 'created_at'];
-   /* public $timestamps = true;*/
+    public $timestamps = true;
     
 
     public function user()

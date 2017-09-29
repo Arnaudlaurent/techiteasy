@@ -6,12 +6,12 @@ use DB;
 use Date;
 use Response;
 use Validator;
+//use Jenssegers\Date\Date;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Models\Category;
 use App\Models\Question;
 use App\Models\Questionnaire;
@@ -169,7 +169,7 @@ class QuestionnaireController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        
+        dump($request->all()); die;
         $page     = 'questionnaire';
         $date = Date::now();
 
